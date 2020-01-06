@@ -238,7 +238,7 @@ class ServerSourceHandler(tornado.web.RequestHandler):
         request = msgpack.unpackb(self.request.body, **unpack_kwargs)
         action = request['action']
         head = self.request.headers
-        logger.debug('Source POST: %s' % request)
+        logger.info('Source POST: %s' % request, action)
 
         if action == 'search':
             if 'source_id' in head:

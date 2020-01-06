@@ -126,6 +126,7 @@ class UserParameter(DictSerialiseMixin):
 
         return value
 
+import time
 
 class LocalCatalogEntry(CatalogEntry):
     """A catalog entry on the local system
@@ -167,6 +168,9 @@ class LocalCatalogEntry(CatalogEntry):
         catalog: bool
             Catalog object in which this entry belongs
         """
+        #print("INIT!!!!!!!!!")
+        a = time.time()
+
         self._name = name
         self._description = description
         self._driver = driver
@@ -178,6 +182,10 @@ class LocalCatalogEntry(CatalogEntry):
         self._catalog_dir = catalog_dir
         self._filesystem = None
         self._catalog = catalog
+
+        b = time.time()
+        #print("init a", b-a)
+
         if isinstance(driver, str):
             dr = get_plugin_class(driver)
             self._plugin = [dr] if dr is not None else []
@@ -207,10 +215,19 @@ class LocalCatalogEntry(CatalogEntry):
             # this is only debug, this single entry won't work, but cat is OK.
             # you get an error if you try to actually use this entry
             logger.debug('No plugins for entry: %s' % self.name)
+            logger.debug(f'Containers: {containers}')
+            logger.debug(f'Driver: {driver}')
             containers = [None]
         self._container = list(containers)[0]
+
+        c = time.time()
+        #print("init b", c-b)
+
         super(LocalCatalogEntry, self).__init__(
             getenv=getenv, getshell=getshell)
+
+        d = time.time()
+        #print("init c", d-c)
 
     @property
     def name(self):

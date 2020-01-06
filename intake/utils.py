@@ -83,6 +83,7 @@ class DictSerialiseMixin(object):
         o = object.__new__(cls)
         o._captured_init_args = args
         o._captured_init_kwargs = kwargs
+        print(type(o.__getstate__()))
         o.__dict__['_tok'] = tokenize(o.__getstate__())
         return o
 

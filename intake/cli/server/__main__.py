@@ -14,7 +14,9 @@ import tornado.web
 
 from .server import IntakeServer
 logger = logging.getLogger('intake')
-
+logging.basicConfig(level=logging.DEBUG,
+                    filename='/home/gbischof/intake.log',
+                    filemode='w')
 
 def call_exit_on_sigterm(signal, frame):
     sys.exit(0)
